@@ -28,6 +28,7 @@ LCD Display (16x2) – Used to show the temperature values in real time. If conn
 Breadboard and Jumper Wires – For easy circuit assembly.
 
 Power Supply – Usually provided through the Arduino’s USB connection. WE USE SOFTWARE ARDUINO IDE WE CAN USE THIS IN VARIOUS APPLICATIONS LIKE - Basic weather stations
+![Image](https://github.com/user-attachments/assets/f1c7c6ab-f06f-4149-9938-68a2cc5a380d)
 
 Room temperature monitoring
 
