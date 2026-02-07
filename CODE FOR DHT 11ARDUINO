@@ -1,0 +1,53 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <DHT.h>
+
+#define DHTPIN 2      // Digital pin connected to the DHT sensor
+#define DHTTYPE DHT11 // DHT 11 sensor type
+
+// Initialize LCD (Address 0x27 or 0x3F, 16 columns, 2 rows)
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);      // Initialize Serial Monitor
+  dht.begin();             // Initialize DHT sensor
+  lcd.init();              // Initialize LCD
+  lcd.backlight();         // Turn on LCD backlight
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Temp Monitor");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  // Reading temperature takes about 250 milliseconds
+  float tempC = dht.readTemperature(); // Read Celsius
+  float hum = dht.readHumidity();      // Read Humidity
+
+  // Check if reading failed
+  if (isnan(tempC) || isnan(hum)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Display on Serial Monitor
+  Serial.print("Temp: ");
+  Serial.print(tempC);
+  Serial.println(" °C");
+
+  // Display on LCD
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(tempC);
+  lcd.print((char)223); // Degree symbol
+  lcd.print("C");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Hum:  ");
+  lcd.print(hum);
+  lcd.print("%");
+
+  delay(2000); // Wait 2 seconds between readings
+}
